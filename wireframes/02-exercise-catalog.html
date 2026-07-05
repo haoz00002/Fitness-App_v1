@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframe - Exercise Catalog Screen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .phone-frame {
+            background: #fff;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            border: 12px solid #000;
+            aspect-ratio: 9/19;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 25px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            z-index: 100;
+        }
+        
+        .screen {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            background: #f5f5f5;
+            padding-top: 12px;
+        }
+        
+        .screen::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .screen::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .screen::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 2px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 16px;
+            color: white;
+            margin-bottom: 0;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .chips-container {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scroll-behavior: smooth;
+        }
+        
+        .chips-container::-webkit-scrollbar {
+            height: 3px;
+        }
+        
+        .chips-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .chip {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            background: transparent;
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        
+        .chip:hover {
+            border-color: white;
+        }
+        
+        .chip.active {
+            background: white;
+            color: #667eea;
+            border-color: white;
+        }
+        
+        .search-container {
+            background: white;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-radius: 12px;
+            margin: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .search-icon {
+            font-size: 20px;
+            color: #999;
+        }
+        
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .search-input::placeholder {
+            color: #ccc;
+        }
+        
+        .content {
+            flex: 1;
+            padding: 0 12px;
+            overflow-y: auto;
+        }
+        
+        .exercise-item {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s;
+        }
+        
+        .exercise-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+        
+        .exercise-thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            flex-shrink: 0;
+        }
+        
+        .exercise-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .exercise-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #212121;
+            margin-bottom: 4px;
+        }
+        
+        .exercise-muscle {
+            font-size: 13px;
+            color: #757575;
+            margin-bottom: 4px;
+        }
+        
+        .exercise-rating {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 4px;
+        }
+        
+        .exercise-details {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .exercise-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .action-btn:hover {
+            background: #e0e0e0;
+            transform: scale(1.1);
+        }
+        
+        .action-btn.play {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .action-btn.play:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3d8f 100%);
+        }
+        
+        .bottom-nav {
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            margin-top: auto;
+        }
+        
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-item.active {
+            color: #667eea;
+        }
+        
+        .nav-item.inactive {
+            color: #999;
+        }
+        
+        .nav-label {
+            font-size: 10px;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+        
+        .nav-item.active .nav-label {
+            color: #667eea;
+        }
+        
+        .nav-item.inactive .nav-label {
+            color: #999;
+        }
+        
+        .divider {
+            height: 1px;
+            background: #f0f0f0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="phone-frame">
+            <div class="screen">
+                <div class="header">
+                    <h1>Übungs-Katalog</h1>
+                    <div class="chips-container">
+                        <div class="chip active">Alle</div>
+                        <div class="chip">Beine</div>
+                        <div class="chip">Oberkörper</div>
+                        <div class="chip">Hintern</div>
+                        <div class="chip">Core</div>
+                        <div class="chip">Arme</div>
+                    </div>
+                </div>
+                
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="Nach Übung suchen...">
+                </div>
+                
+                <div class="content">
+                    <!-- Exercise 1 -->
+                    <div class="exercise-item">
+                        <div class="exercise-thumbnail">🏋️</div>
+                        <div class="exercise-info">
+                            <div class="exercise-name">Liegestütze</div>
+                            <div class="exercise-muscle">🦵 Oberkörper</div>
+                            <div class="exercise-rating">⭐⭐⭐⭐⭐ (5,0)</div>
+                            <div class="exercise-details">12 Sätze, 8 Rep.</div>
+                        </div>
+                        <div class="exercise-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">♥</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Exercise 2 -->
+                    <div class="exercise-item">
+                        <div class="exercise-thumbnail">🦵</div>
+                        <div class="exercise-info">
+                            <div class="exercise-name">Kniebeuge</div>
+                            <div class="exercise-muscle">🦵 Beine</div>
+                            <div class="exercise-rating">⭐⭐⭐⭐⭐ (4,9)</div>
+                            <div class="exercise-details">10 Sätze, 12 Rep.</div>
+                        </div>
+                        <div class="exercise-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">♥</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Exercise 3 -->
+                    <div class="exercise-item">
+                        <div class="exercise-thumbnail">🍑</div>
+                        <div class="exercise-info">
+                            <div class="exercise-name">Hinteren Heben</div>
+                            <div class="exercise-muscle">🍑 Hintern</div>
+                            <div class="exercise-rating">⭐⭐⭐⭐ (4,5)</div>
+                            <div class="exercise-details">8 Sätze, 10 Rep.</div>
+                        </div>
+                        <div class="exercise-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">♥</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Exercise 4 -->
+                    <div class="exercise-item">
+                        <div class="exercise-thumbnail">🫀</div>
+                        <div class="exercise-info">
+                            <div class="exercise-name">Planks</div>
+                            <div class="exercise-muscle">🫀 Core</div>
+                            <div class="exercise-rating">⭐⭐⭐⭐⭐ (4,8)</div>
+                            <div class="exercise-details">5 Sätze, 60 Sec.</div>
+                        </div>
+                        <div class="exercise-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">♥</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Exercise 5 -->
+                    <div class="exercise-item">
+                        <div class="exercise-thumbnail">💪</div>
+                        <div class="exercise-info">
+                            <div class="exercise-name">Kreuzheben</div>
+                            <div class="exercise-muscle">💪 Rücken</div>
+                            <div class="exercise-rating">⭐⭐⭐⭐⭐ (5,0)</div>
+                            <div class="exercise-details">8 Sätze, 6 Rep.</div>
+                        </div>
+                        <div class="exercise-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">♥</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Exercise 6 -->
+                    <div class="exercise-item">
+                        <div class="exercise-thumbnail">🦾</div>
+                        <div class="exercise-info">
+                            <div class="exercise-name">Bizeps Curls</div>
+                            <div class="exercise-muscle">🦾 Arme</div>
+                            <div class="exercise-rating">⭐⭐⭐⭐ (4,7)</div>
+                            <div class="exercise-details">4 Sätze, 10 Rep.</div>
+                        </div>
+                        <div class="exercise-actions">
+                            <button class="action-btn play">▶</button>
+                            <button class="action-btn">♥</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bottom-nav">
+                    <div class="nav-item inactive">
+                        <span>🏠</span>
+                        <span class="nav-label">Home</span>
+                    </div>
+                    <div class="nav-item active">
+                        <span>📚</span>
+                        <span class="nav-label">Übungen</span>
+                    </div>
+                    <div class="nav-item inactive">
+                        <span>📅</span>
+                        <span class="nav-label">Kalender</span>
+                    </div>
+                    <div class="nav-item inactive">
+                        <span>📊</span>
+                        <span class="nav-label">Analyse</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

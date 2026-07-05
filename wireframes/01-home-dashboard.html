@@ -38,7 +38,6 @@
             position: relative;
         }
         
-        /* Notch */
         .phone-frame::before {
             content: '';
             position: absolute;
@@ -74,7 +73,6 @@
             border-radius: 2px;
         }
         
-        /* Header */
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 16px;
@@ -130,14 +128,12 @@
             background: rgba(255, 255, 255, 0.3);
         }
         
-        /* Content */
         .content {
             flex: 1;
             padding: 0 16px;
             overflow-y: auto;
         }
         
-        /* Level Card */
         .level-card {
             background: white;
             border-radius: 16px;
@@ -197,7 +193,6 @@
             margin-top: 8px;
         }
         
-        /* Regenerations Section */
         .regen-section h3 {
             font-size: 16px;
             font-weight: 600;
@@ -284,7 +279,6 @@
             background: rgba(244, 67, 54, 0.1);
         }
         
-        /* Greens for different states */
         .regen-green { color: #4caf50; }
         .regen-orange { color: #ff9800; }
         .regen-red { color: #f44336; }
@@ -293,7 +287,6 @@
         .bar-orange { background: linear-gradient(90deg, #ff9800 0%, #f57c00 100%); }
         .bar-red { background: linear-gradient(90deg, #f44336 0%, #e53935 100%); }
         
-        /* CTA Button */
         .cta-button {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -317,7 +310,6 @@
             box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
         }
         
-        /* Bottom Navigation */
         .bottom-nav {
             background: white;
             border-top: 1px solid #e0e0e0;
@@ -362,7 +354,6 @@
             color: #999;
         }
         
-        /* Legend */
         .legend {
             background: #f9f9f9;
             padding: 12px;
@@ -385,7 +376,6 @@
     <div class="container">
         <div class="phone-frame">
             <div class="screen">
-                <!-- Header -->
                 <div class="header">
                     <div class="header-left">
                         <div class="avatar">👤</div>
@@ -399,9 +389,7 @@
                     </div>
                 </div>
                 
-                <!-- Content -->
                 <div class="content">
-                    <!-- Level Card -->
                     <div class="level-card">
                         <h3>Dein Level</h3>
                         <div class="level-number">12</div>
@@ -414,12 +402,10 @@
                         <div class="level-hint">Nächstes Level: +2.550 XP</div>
                     </div>
                     
-                    <!-- Regenerations Status -->
                     <div class="regen-section">
                         <h3>Regenerations-Status</h3>
                         
                         <div class="regen-grid">
-                            <!-- Beine - Bereit -->
                             <div class="regen-card">
                                 <div class="regen-icon">🦵</div>
                                 <div class="regen-name">Beine</div>
@@ -430,7 +416,6 @@
                                 <div class="regen-status status-ready">✓ Bereit</div>
                             </div>
                             
-                            <!-- Oberkörper - Regenerierend -->
                             <div class="regen-card">
                                 <div class="regen-icon">💪</div>
                                 <div class="regen-name">Oberkörper</div>
@@ -441,7 +426,6 @@
                                 <div class="regen-status status-regenerating">⟳ Regenerierend</div>
                             </div>
                             
-                            <!-- Hintern - Erschöpft -->
                             <div class="regen-card">
                                 <div class="regen-icon">🍑</div>
                                 <div class="regen-name">Hintern</div>
@@ -452,7 +436,6 @@
                                 <div class="regen-status status-exhausted">⚠ Erschöpft</div>
                             </div>
                             
-                            <!-- Core - Regenerierend -->
                             <div class="regen-card">
                                 <div class="regen-icon">🫀</div>
                                 <div class="regen-name">Core</div>
@@ -470,14 +453,12 @@
                         </div>
                     </div>
                     
-                    <!-- CTA Button -->
                     <button class="cta-button">
                         <span>▶</span>
                         <span>Neues Training starten</span>
                     </button>
                 </div>
                 
-                <!-- Bottom Navigation -->
                 <div class="bottom-nav">
                     <div class="nav-item active">
                         <span>🏠</span>
