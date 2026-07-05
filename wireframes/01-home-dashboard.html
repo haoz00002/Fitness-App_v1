@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframe - Home Dashboard Screen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .phone-frame {
+            background: #fff;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            border: 12px solid #000;
+            aspect-ratio: 9/19;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        /* Notch */
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 25px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            z-index: 100;
+        }
+        
+        .screen {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            background: #f5f5f5;
+            padding-top: 12px;
+        }
+        
+        .screen::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .screen::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .screen::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 2px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            margin-bottom: 16px;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .header-text h2 {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .header-right {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .icon-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 0 16px;
+            overflow-y: auto;
+        }
+        
+        /* Level Card */
+        .level-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+        
+        .level-card h3 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #757575;
+            margin-bottom: 12px;
+        }
+        
+        .level-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 16px;
+        }
+        
+        .progress-container {
+            margin-bottom: 12px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            width: 49%;
+            background: linear-gradient(90deg, #4caf50 0%, #45a049 100%);
+            animation: fillProgress 1s ease-out;
+        }
+        
+        @keyframes fillProgress {
+            from { width: 0; }
+        }
+        
+        .progress-text {
+            font-size: 12px;
+            color: #757575;
+            font-weight: 500;
+        }
+        
+        .level-hint {
+            font-size: 11px;
+            color: #999;
+            margin-top: 8px;
+        }
+        
+        /* Regenerations Section */
+        .regen-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #212121;
+            margin-bottom: 16px;
+            padding: 0 16px;
+        }
+        
+        .regen-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 0 16px;
+            margin-bottom: 20px;
+        }
+        
+        .regen-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        
+        .regen-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+        
+        .regen-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .regen-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #212121;
+            margin-bottom: 8px;
+        }
+        
+        .regen-percentage {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .regen-bar {
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+        
+        .regen-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+        }
+        
+        .regen-status {
+            font-size: 10px;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        
+        .status-ready {
+            color: #4caf50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+        
+        .status-regenerating {
+            color: #ff9800;
+            background: rgba(255, 152, 0, 0.1);
+        }
+        
+        .status-exhausted {
+            color: #f44336;
+            background: rgba(244, 67, 54, 0.1);
+        }
+        
+        /* Greens for different states */
+        .regen-green { color: #4caf50; }
+        .regen-orange { color: #ff9800; }
+        .regen-red { color: #f44336; }
+        
+        .bar-green { background: linear-gradient(90deg, #4caf50 0%, #45a049 100%); }
+        .bar-orange { background: linear-gradient(90deg, #ff9800 0%, #f57c00 100%); }
+        .bar-red { background: linear-gradient(90deg, #f44336 0%, #e53935 100%); }
+        
+        /* CTA Button */
+        .cta-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .cta-button:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            margin-top: auto;
+        }
+        
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-item.active {
+            color: #667eea;
+        }
+        
+        .nav-item.inactive {
+            color: #999;
+        }
+        
+        .nav-label {
+            font-size: 10px;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+        
+        .nav-item.active .nav-label {
+            color: #667eea;
+        }
+        
+        .nav-item.inactive .nav-label {
+            color: #999;
+        }
+        
+        /* Legend */
+        .legend {
+            background: #f9f9f9;
+            padding: 12px;
+            margin-top: 16px;
+            border-radius: 8px;
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+        }
+        
+        .legend strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="phone-frame">
+            <div class="screen">
+                <!-- Header -->
+                <div class="header">
+                    <div class="header-left">
+                        <div class="avatar">👤</div>
+                        <div class="header-text">
+                            <h2>Max Mustermann</h2>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <div class="icon-btn">⚙️</div>
+                        <div class="icon-btn">🔔</div>
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                <div class="content">
+                    <!-- Level Card -->
+                    <div class="level-card">
+                        <h3>Dein Level</h3>
+                        <div class="level-number">12</div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+                            <div class="progress-text">2.450 / 5.000 XP</div>
+                        </div>
+                        <div class="level-hint">Nächstes Level: +2.550 XP</div>
+                    </div>
+                    
+                    <!-- Regenerations Status -->
+                    <div class="regen-section">
+                        <h3>Regenerations-Status</h3>
+                        
+                        <div class="regen-grid">
+                            <!-- Beine - Bereit -->
+                            <div class="regen-card">
+                                <div class="regen-icon">🦵</div>
+                                <div class="regen-name">Beine</div>
+                                <div class="regen-percentage regen-green">78%</div>
+                                <div class="regen-bar">
+                                    <div class="regen-bar-fill bar-green" style="width: 78%;"></div>
+                                </div>
+                                <div class="regen-status status-ready">✓ Bereit</div>
+                            </div>
+                            
+                            <!-- Oberkörper - Regenerierend -->
+                            <div class="regen-card">
+                                <div class="regen-icon">💪</div>
+                                <div class="regen-name">Oberkörper</div>
+                                <div class="regen-percentage regen-orange">45%</div>
+                                <div class="regen-bar">
+                                    <div class="regen-bar-fill bar-orange" style="width: 45%;"></div>
+                                </div>
+                                <div class="regen-status status-regenerating">⟳ Regenerierend</div>
+                            </div>
+                            
+                            <!-- Hintern - Erschöpft -->
+                            <div class="regen-card">
+                                <div class="regen-icon">🍑</div>
+                                <div class="regen-name">Hintern</div>
+                                <div class="regen-percentage regen-red">12%</div>
+                                <div class="regen-bar">
+                                    <div class="regen-bar-fill bar-red" style="width: 12%;"></div>
+                                </div>
+                                <div class="regen-status status-exhausted">⚠ Erschöpft</div>
+                            </div>
+                            
+                            <!-- Core - Regenerierend -->
+                            <div class="regen-card">
+                                <div class="regen-icon">🫀</div>
+                                <div class="regen-name">Core</div>
+                                <div class="regen-percentage regen-orange">65%</div>
+                                <div class="regen-bar">
+                                    <div class="regen-bar-fill bar-orange" style="width: 65%;"></div>
+                                </div>
+                                <div class="regen-status status-regenerating">⟳ Regenerierend</div>
+                            </div>
+                        </div>
+                        
+                        <div class="legend">
+                            <strong>Regenerations-Status</strong>
+                            <span>🟢 Bereit (67-100%) | 🟡 Regenerierend (34-66%) | 🔴 Erschöpft (0-33%)</span>
+                        </div>
+                    </div>
+                    
+                    <!-- CTA Button -->
+                    <button class="cta-button">
+                        <span>▶</span>
+                        <span>Neues Training starten</span>
+                    </button>
+                </div>
+                
+                <!-- Bottom Navigation -->
+                <div class="bottom-nav">
+                    <div class="nav-item active">
+                        <span>🏠</span>
+                        <span class="nav-label">Home</span>
+                    </div>
+                    <div class="nav-item inactive">
+                        <span>📚</span>
+                        <span class="nav-label">Übungen</span>
+                    </div>
+                    <div class="nav-item inactive">
+                        <span>📅</span>
+                        <span class="nav-label">Kalender</span>
+                    </div>
+                    <div class="nav-item inactive">
+                        <span>📊</span>
+                        <span class="nav-label">Analyse</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
